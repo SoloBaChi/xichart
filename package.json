@@ -1,0 +1,31 @@
+{
+  "name": "xichart",
+  "version": "1.0.0",
+  "description": "a social media API  built with NodJs. the app has features like giving users access to view his or her profile, see who follows their account and also who likes their page",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoloBaChi/xichart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoloBaChi/xichart/issues"
+  },
+  "homepage": "https://github.com/SoloBaChi/xichart#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.6.3",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1"
+  }
+}
