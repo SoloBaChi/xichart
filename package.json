@@ -4,7 +4,7 @@
   "description": "a social media API  built with NodJs. the app has features like giving users access to view his or her profile, see who follows their account and also who likes their page",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon src/index",
+    "start": "nodemon src/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,7 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "mongoose": "^7.6.3",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.7",
