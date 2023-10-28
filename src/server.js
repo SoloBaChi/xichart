@@ -12,9 +12,9 @@ require("dotenv").config()
 const app = express();
 
 // basic middlewares
-app.use(cors({origin:"*"}))
-app.use(urlencoded({extended:true}))
-app.use(json())
+app.use(cors({origin:"*", credentials:true}));
+app.use(urlencoded({extended:true}));
+app.use(json());
 
 
 // ////ROUTES///////
@@ -24,8 +24,11 @@ res.status(200).json({
  status:"sucess",
  statusCode:200,
  message:`Welcome to ${process.env.APP_NAME} API`
-})
-})
+});
+});
+
+
+// other Routes
 
 
 
@@ -34,9 +37,9 @@ app.use("*",(req,res)=>{
 res.status(404).json({
 status:"error",
 statusCode:404,
-message:"Route not found!"
+message:"Not found!"
 })
-})
+});
 
 
 
@@ -51,7 +54,7 @@ const start = async() => {
 await connectDatabase();
 
 app.listen(port,()=>{
-console.log(`server started at localhost:${port}`)
+console.log(`server started at localhost:${port}`);
 })
 }
 
