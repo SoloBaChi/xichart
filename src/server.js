@@ -30,7 +30,7 @@ res.status(200).json({
 
 
 // Not found Route
-app.get("*",(req,res)=>{
+app.use("*",(req,res)=>{
 res.status(404).json({
 status:"error",
 statusCode:404,
