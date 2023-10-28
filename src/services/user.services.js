@@ -5,7 +5,7 @@ const UserModel = require("../models/user.model")
 class UserServices{
 // create a user
 async create(userData){
-return UserModel.create({userData})
+return UserModel.create(userData)
 }
 
 // update a user
@@ -19,7 +19,7 @@ return UserModel.findByIdAndDelete(filter)
 }
 
 // get a user
-async get(filter){
+async fetchOne(filter){
 return UserModel.findOne(filter)
 }
 }
