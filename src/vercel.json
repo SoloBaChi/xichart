@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "xichart app",
+    "name": "xichart",
     "builds": [
       {
         "src": "index.js",
