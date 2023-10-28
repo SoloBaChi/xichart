@@ -3,7 +3,9 @@ const express = require("express"),
       cors = require("cors"),
       morgan = require("morgan"),
       {urlencoded,json} = require("body-parser"),
-      {connectDatabase}  = require("./services/db.services");
+      {connectDatabase}  = require("./services/db.services"),
+      {signUp,signIn,protect} = require("./utils/auth"),
+      {body} = require("express-validator");
 
 require("dotenv").config()
 
@@ -29,7 +31,22 @@ res.status(200).json({
 
 
 // other Routes
-
+app.post("/register",
+body("email").isEmail().withMessage("please enter a valid email address"),
+  body("password")
+    .isStrongPassword({
+      minLength: 8,
+    })
+    .withMessage(`Password must be 8 characters length`),
+signUp);
+app.post("/login",
+body("email").isEmail().withMessage("please enter a valid email address"),
+  body("password")
+    .isStrongPassword({
+      minLength: 8,
+    })
+    .withMessage(`Password must be 8 characters length`),
+signIn)
 
 
 // Not found Route
