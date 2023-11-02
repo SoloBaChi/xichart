@@ -2,6 +2,9 @@
 const express = require("express"),
       cors = require("cors"),
       morgan = require("morgan"),
+      ResponseMessage = require("./utils/message.response"),
+      userRouter = require("./routes/user.route"),
+      postRouter = require("./routes/posts.route"),
       {urlencoded,json} = require("body-parser"),
       {connectDatabase}  = require("./services/db.services"),
       {signUp,signIn,protect} = require("./utils/auth"),
@@ -22,15 +25,11 @@ app.use(json());
 // ////ROUTES///////
 // Default Route
 app.get("/",(req,res)=>{
-res.status(200).json({
- status:"sucess",
- statusCode:200,
- message:`Welcome to ${process.env.APP_NAME} API`
-});
+res.status(200).json(new ResponseMessage("success",200,`Welcome to ${process.env.APP_NAME} API`));
 });
 
 
-// other Routes
+// Auth Routes
 app.post("/register",
 body("email").isEmail().withMessage("please enter a valid email address"),
   body("password")
@@ -49,13 +48,16 @@ body("email").isEmail().withMessage("please enter a valid email address"),
 signIn)
 
 
+//midlewares
+app.use("/api/v1",protect);
+app.use("/api/v1/user",userRouter);
+app.use("/api/v1/post",postRouter);
+
+
+
 // Not found Route
 app.use("*",(req,res)=>{
-res.status(404).json({
-status:"error",
-statusCode:404,
-message:"Not found!"
-})
+res.status(404).json(new ResponseMessage("error",400,"Not Found!"));
 });
 
 

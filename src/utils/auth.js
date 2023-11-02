@@ -88,10 +88,48 @@ return res.status(400).json(new ResponseMessage("error",400,"INTERNAL SERVER ERR
 }
 
 
-auth.protect = async(req,res) => {
+// Protect Middleware
+auth.protect = async(req,res,next) => {
 // check if the bearer token exist
+const bearer = req.headers.authorization;
+if(!bearer || !bearer.startsWith("Bearer ")){
+return res.status(401).json(new ResponseMessage("error",401,"Don't have an account !"))
+}
 
+// get the token
+let token = await bearer.split(" ")[1];
+if(token === undefined){
+return res.status(401).json(new ResponseMessage("error",401,"Token does not exist!"))
+}
 
+// decode the bearer token
+let decodedToken;
+try{
+decodedToken = await verifyToken(token);
+}
+catch(err){
+return res.status(401).json(new ResponseMessage("error",401,"Authorized token"))
+}
+if(!decodedToken){
+return res.status(401).json(new ResponseMessage("error",401,"Invalid token"));
+}
+
+// Extract the user by getting the payload id
+const userId = decodedToken.id;
+
+// confirm that the user Id is invalid
+if(!userId){
+return res.status(401).json(new Response("error",401,"Invalid token"))
+}
+
+const user = await userServices.fetchOne({_id:userId});
+if(!user){
+return res.status(401).json(new Response("error",401,"Unauthorized Request! Sign In Or SignUp!. If you are already signed in, please logout and login again"))    
+}
+
+req.user = user;
+
+next();
 }
 
 
